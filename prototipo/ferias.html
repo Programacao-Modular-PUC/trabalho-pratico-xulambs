@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>RHSoft — Férias</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo">RH<span>Soft</span></div>
+    <nav>
+        <a href="dashboard.html"    class="nav-item"><span class="icon">🏠</span> Dashboard</a>
+        <a href="funcionarios.html" class="nav-item"><span class="icon">👥</span> Funcionários</a>
+        <a href="folha.html"        class="nav-item"><span class="icon">💰</span> Folha de Pagamento</a>
+        <a href="ferias.html"       class="nav-item active"><span class="icon">🌴</span> Férias</a>
+        <a href="ponto.html"        class="nav-item"><span class="icon">🕐</span> Registro de Ponto</a>
+        <a href="avaliacao.html"    class="nav-item"><span class="icon">⭐</span> Avaliações</a>
+    </nav>
+    <div style="padding:16px 20px; color:#5a7090; font-size:12px; border-top:1px solid #243b5e;">
+        <div style="font-weight:600; color:#a0b0c8;">Maria Souza</div>
+        <div>Gestora de RH</div>
+    </div>
+</div>
+
+<div class="topbar">
+    <h1>Férias</h1>
+    <div class="user-info">
+        <div class="avatar">MS</div>
+        <span>Maria Souza</span>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- Nova solicitação -->
+    <div class="card">
+        <div class="card-title">Nova Solicitação de Férias</div>
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">Funcionário</label>
+                <select class="form-control">
+                    <option>Carlos Lima</option>
+                    <option>Ana Paula</option>
+                    <option>Roberto Silva</option>
+                    <option>Fernanda Costa</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Dias Disponíveis</label>
+                <input class="form-control" type="text" value="30 dias" disabled style="background:#f8f9fb;">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Data de Início</label>
+                <input class="form-control" type="date">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Data de Fim</label>
+                <input class="form-control" type="date">
+            </div>
+        </div>
+        <button class="btn btn-primary">Solicitar Férias</button>
+    </div>
+
+    <!-- Lista de solicitações -->
+    <div class="card">
+        <div class="card-title">Solicitações</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Funcionário</th>
+                    <th>Data Início</th>
+                    <th>Data Fim</th>
+                    <th>Dias</th>
+                    <th>Solicitado em</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Carlos Lima</td>
+                    <td>01/06/2025</td>
+                    <td>20/06/2025</td>
+                    <td>20</td>
+                    <td>10/05/2025</td>
+                    <td><span class="badge badge-yellow">Pendente</span></td>
+                    <td>
+                        <button class="btn btn-success btn-sm">Aprovar</button>
+                        <button class="btn btn-danger btn-sm">Recusar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ana Paula</td>
+                    <td>10/06/2025</td>
+                    <td>25/06/2025</td>
+                    <td>15</td>
+                    <td>08/05/2025</td>
+                    <td><span class="badge badge-green">Aprovada</span></td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td>Roberto Silva</td>
+                    <td>15/07/2025</td>
+                    <td>04/08/2025</td>
+                    <td>20</td>
+                    <td>12/05/2025</td>
+                    <td><span class="badge badge-yellow">Pendente</span></td>
+                    <td>
+                        <button class="btn btn-success btn-sm">Aprovar</button>
+                        <button class="btn btn-danger btn-sm">Recusar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fernanda Costa</td>
+                    <td>01/08/2025</td>
+                    <td>20/08/2025</td>
+                    <td>20</td>
+                    <td>05/05/2025</td>
+                    <td><span class="badge badge-red">Recusada</span></td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

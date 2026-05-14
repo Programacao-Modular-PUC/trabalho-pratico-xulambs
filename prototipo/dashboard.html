@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>RHSoft — Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo">RH<span>Soft</span></div>
+    <nav>
+        <a href="dashboard.html"    class="nav-item active"><span class="icon">🏠</span> Dashboard</a>
+        <a href="funcionarios.html" class="nav-item"><span class="icon">👥</span> Funcionários</a>
+        <a href="folha.html"        class="nav-item"><span class="icon">💰</span> Folha de Pagamento</a>
+        <a href="ferias.html"       class="nav-item"><span class="icon">🌴</span> Férias</a>
+        <a href="ponto.html"        class="nav-item"><span class="icon">🕐</span> Registro de Ponto</a>
+        <a href="avaliacao.html"    class="nav-item"><span class="icon">⭐</span> Avaliações</a>
+    </nav>
+    <div style="padding:16px 20px; color:#5a7090; font-size:12px; border-top:1px solid #243b5e;">
+        <div style="font-weight:600; color:#a0b0c8;">Maria Souza</div>
+        <div>Gestora de RH</div>
+    </div>
+</div>
+
+<div class="topbar">
+    <h1>Dashboard</h1>
+    <div class="user-info">
+        <div class="avatar">MS</div>
+        <span>Maria Souza</span>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- Stats -->
+    <div class="grid-4" style="margin-bottom:24px;">
+        <div class="stat-card">
+            <div class="stat-icon blue">👥</div>
+            <div>
+                <div class="stat-value">142</div>
+                <div class="stat-label">Funcionários Ativos</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon green">🌴</div>
+            <div>
+                <div class="stat-value">8</div>
+                <div class="stat-label">Férias Pendentes</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon orange">💰</div>
+            <div>
+                <div class="stat-value">Mai/25</div>
+                <div class="stat-label">Última Folha</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon purple">⭐</div>
+            <div>
+                <div class="stat-value">23</div>
+                <div class="stat-label">Avaliações em Aberto</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <!-- Últimas solicitações -->
+        <div class="card">
+            <div class="card-title">Solicitações de Férias Recentes</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Funcionário</th>
+                        <th>Período</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Carlos Lima</td>
+                        <td>01/06 – 20/06</td>
+                        <td><span class="badge badge-yellow">Pendente</span></td>
+                    </tr>
+                    <tr>
+                        <td>Ana Paula</td>
+                        <td>10/06 – 25/06</td>
+                        <td><span class="badge badge-green">Aprovada</span></td>
+                    </tr>
+                    <tr>
+                        <td>Roberto Silva</td>
+                        <td>15/07 – 04/08</td>
+                        <td><span class="badge badge-yellow">Pendente</span></td>
+                    </tr>
+                    <tr>
+                        <td>Fernanda Costa</td>
+                        <td>01/08 – 20/08</td>
+                        <td><span class="badge badge-red">Recusada</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Registros de ponto do dia -->
+        <div class="card">
+            <div class="card-title">Registros de Ponto — Hoje</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Funcionário</th>
+                        <th>Entrada</th>
+                        <th>Saída</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>João Pereira</td>
+                        <td>08:02</td>
+                        <td>17:05</td>
+                        <td><span class="badge badge-green">Normal</span></td>
+                    </tr>
+                    <tr>
+                        <td>Lucia Mendes</td>
+                        <td>08:45</td>
+                        <td>—</td>
+                        <td><span class="badge badge-blue">Em serviço</span></td>
+                    </tr>
+                    <tr>
+                        <td>Pedro Alves</td>
+                        <td>09:10</td>
+                        <td>—</td>
+                        <td><span class="badge badge-yellow">Atraso</span></td>
+                    </tr>
+                    <tr>
+                        <td>Sandra Reis</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td><span class="badge badge-red">Ausente</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

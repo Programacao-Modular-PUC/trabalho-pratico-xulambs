@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>RHSoft — Avaliações</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo">RH<span>Soft</span></div>
+    <nav>
+        <a href="dashboard.html"    class="nav-item"><span class="icon">🏠</span> Dashboard</a>
+        <a href="funcionarios.html" class="nav-item"><span class="icon">👥</span> Funcionários</a>
+        <a href="folha.html"        class="nav-item"><span class="icon">💰</span> Folha de Pagamento</a>
+        <a href="ferias.html"       class="nav-item"><span class="icon">🌴</span> Férias</a>
+        <a href="ponto.html"        class="nav-item"><span class="icon">🕐</span> Registro de Ponto</a>
+        <a href="avaliacao.html"    class="nav-item active"><span class="icon">⭐</span> Avaliações</a>
+    </nav>
+    <div style="padding:16px 20px; color:#5a7090; font-size:12px; border-top:1px solid #243b5e;">
+        <div style="font-weight:600; color:#a0b0c8;">Maria Souza</div>
+        <div>Gestora de RH</div>
+    </div>
+</div>
+
+<div class="topbar">
+    <h1>Avaliação de Desempenho</h1>
+    <div class="user-info">
+        <div class="avatar">MS</div>
+        <span>Maria Souza</span>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- Nova avaliação -->
+    <div class="card">
+        <div class="card-title">Nova Avaliação</div>
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">Funcionário</label>
+                <select class="form-control">
+                    <option>Carlos Lima</option>
+                    <option>Ana Paula</option>
+                    <option>Roberto Silva</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Período de Avaliação</label>
+                <select class="form-control">
+                    <option>1º Semestre / 2025</option>
+                    <option>2º Semestre / 2024</option>
+                    <option>1º Semestre / 2024</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Critérios -->
+        <div style="margin-top:8px;">
+            <div class="card-title" style="font-size:13px; border:none; padding:0; margin-bottom:12px;">Critérios de Avaliação (nota de 0 a 10)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Critério</th>
+                        <th>Peso</th>
+                        <th>Nota</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Produtividade</td>
+                        <td>30%</td>
+                        <td><input class="form-control" type="number" min="0" max="10" placeholder="0–10" style="width:80px;"></td>
+                    </tr>
+                    <tr>
+                        <td>Trabalho em Equipe</td>
+                        <td>25%</td>
+                        <td><input class="form-control" type="number" min="0" max="10" placeholder="0–10" style="width:80px;"></td>
+                    </tr>
+                    <tr>
+                        <td>Comunicação</td>
+                        <td>20%</td>
+                        <td><input class="form-control" type="number" min="0" max="10" placeholder="0–10" style="width:80px;"></td>
+                    </tr>
+                    <tr>
+                        <td>Pontualidade</td>
+                        <td>15%</td>
+                        <td><input class="form-control" type="number" min="0" max="10" placeholder="0–10" style="width:80px;"></td>
+                    </tr>
+                    <tr>
+                        <td>Proatividade</td>
+                        <td>10%</td>
+                        <td><input class="form-control" type="number" min="0" max="10" placeholder="0–10" style="width:80px;"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top:16px;">
+            <button class="btn btn-primary">Salvar Avaliação</button>
+        </div>
+    </div>
+
+    <!-- Histórico de avaliações -->
+    <div class="card">
+        <div class="card-title">Avaliações Realizadas</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Funcionário</th>
+                    <th>Avaliador</th>
+                    <th>Período</th>
+                    <th>Produtividade</th>
+                    <th>Equipe</th>
+                    <th>Comunicação</th>
+                    <th>Nota Final</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Carlos Lima</td>
+                    <td>Maria Souza</td>
+                    <td>2º Sem/2024</td>
+                    <td>8,5</td>
+                    <td>9,0</td>
+                    <td>7,5</td>
+                    <td><strong>8,4</strong></td>
+                    <td><span class="badge badge-green">Concluída</span></td>
+                </tr>
+                <tr>
+                    <td>Ana Paula</td>
+                    <td>Maria Souza</td>
+                    <td>2º Sem/2024</td>
+                    <td>9,5</td>
+                    <td>9,0</td>
+                    <td>9,5</td>
+                    <td><strong>9,3</strong></td>
+                    <td><span class="badge badge-green">Concluída</span></td>
+                </tr>
+                <tr>
+                    <td>Roberto Silva</td>
+                    <td>—</td>
+                    <td>1º Sem/2025</td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td><span class="badge badge-yellow">Pendente</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

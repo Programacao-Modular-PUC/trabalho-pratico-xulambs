@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>RHSoft — Registro de Ponto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo">RH<span>Soft</span></div>
+    <nav>
+        <a href="dashboard.html"    class="nav-item"><span class="icon">🏠</span> Dashboard</a>
+        <a href="funcionarios.html" class="nav-item"><span class="icon">👥</span> Funcionários</a>
+        <a href="folha.html"        class="nav-item"><span class="icon">💰</span> Folha de Pagamento</a>
+        <a href="ferias.html"       class="nav-item"><span class="icon">🌴</span> Férias</a>
+        <a href="ponto.html"        class="nav-item active"><span class="icon">🕐</span> Registro de Ponto</a>
+        <a href="avaliacao.html"    class="nav-item"><span class="icon">⭐</span> Avaliações</a>
+    </nav>
+    <div style="padding:16px 20px; color:#5a7090; font-size:12px; border-top:1px solid #243b5e;">
+        <div style="font-weight:600; color:#a0b0c8;">Maria Souza</div>
+        <div>Gestora de RH</div>
+    </div>
+</div>
+
+<div class="topbar">
+    <h1>Registro de Ponto</h1>
+    <div class="user-info">
+        <div class="avatar">MS</div>
+        <span>Maria Souza</span>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- Registrar ponto -->
+    <div class="card">
+        <div class="card-title">Registrar Ponto</div>
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">Funcionário</label>
+                <select class="form-control">
+                    <option>Carlos Lima</option>
+                    <option>Ana Paula</option>
+                    <option>Roberto Silva</option>
+                    <option>Fernanda Costa</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Data</label>
+                <input class="form-control" type="date" value="2025-05-14">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Hora de Entrada</label>
+                <input class="form-control" type="time" value="08:00">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Hora de Saída</label>
+                <input class="form-control" type="time" value="17:00">
+            </div>
+        </div>
+        <button class="btn btn-primary">Registrar</button>
+    </div>
+
+    <!-- Filtro -->
+    <div class="card">
+        <div class="card-title">Consultar Registros</div>
+        <div style="display:flex; gap:16px; align-items:flex-end;">
+            <div class="form-group" style="margin:0; flex:1;">
+                <label class="form-label">Funcionário</label>
+                <select class="form-control"><option>Todos</option></select>
+            </div>
+            <div class="form-group" style="margin:0; flex:1;">
+                <label class="form-label">Período</label>
+                <input class="form-control" type="month" value="2025-05">
+            </div>
+            <button class="btn btn-primary" style="margin-bottom:0;">Filtrar</button>
+        </div>
+    </div>
+
+    <!-- Tabela de ponto -->
+    <div class="card">
+        <div class="card-title">Registros — Maio/2025</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Funcionário</th>
+                    <th>Turno</th>
+                    <th>Entrada</th>
+                    <th>Saída</th>
+                    <th>Horas Trabalhadas</th>
+                    <th>Ocorrência</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>14/05/2025</td>
+                    <td>João Pereira</td>
+                    <td>Manhã</td>
+                    <td>08:02</td>
+                    <td>17:05</td>
+                    <td>9h03</td>
+                    <td><span class="badge badge-green">Normal</span></td>
+                </tr>
+                <tr>
+                    <td>14/05/2025</td>
+                    <td>Lucia Mendes</td>
+                    <td>Tarde</td>
+                    <td>14:00</td>
+                    <td>23:00</td>
+                    <td>9h00</td>
+                    <td><span class="badge badge-green">Normal</span></td>
+                </tr>
+                <tr>
+                    <td>14/05/2025</td>
+                    <td>Pedro Alves</td>
+                    <td>Manhã</td>
+                    <td>09:10</td>
+                    <td>18:00</td>
+                    <td>8h50</td>
+                    <td><span class="badge badge-yellow">Atraso</span></td>
+                </tr>
+                <tr>
+                    <td>14/05/2025</td>
+                    <td>Sandra Reis</td>
+                    <td>Manhã</td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>0h00</td>
+                    <td><span class="badge badge-red">Falta</span></td>
+                </tr>
+                <tr>
+                    <td>13/05/2025</td>
+                    <td>Carlos Lima</td>
+                    <td>Integral</td>
+                    <td>09:00</td>
+                    <td>19:00</td>
+                    <td>10h00</td>
+                    <td><span class="badge badge-blue">Hora Extra</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

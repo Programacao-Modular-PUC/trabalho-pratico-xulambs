@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>RHSoft — Funcionários</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo">RH<span>Soft</span></div>
+    <nav>
+        <a href="dashboard.html"    class="nav-item"><span class="icon">🏠</span> Dashboard</a>
+        <a href="funcionarios.html" class="nav-item active"><span class="icon">👥</span> Funcionários</a>
+        <a href="folha.html"        class="nav-item"><span class="icon">💰</span> Folha de Pagamento</a>
+        <a href="ferias.html"       class="nav-item"><span class="icon">🌴</span> Férias</a>
+        <a href="ponto.html"        class="nav-item"><span class="icon">🕐</span> Registro de Ponto</a>
+        <a href="avaliacao.html"    class="nav-item"><span class="icon">⭐</span> Avaliações</a>
+    </nav>
+    <div style="padding:16px 20px; color:#5a7090; font-size:12px; border-top:1px solid #243b5e;">
+        <div style="font-weight:600; color:#a0b0c8;">Maria Souza</div>
+        <div>Gestora de RH</div>
+    </div>
+</div>
+
+<div class="topbar">
+    <h1>Funcionários</h1>
+    <div class="user-info">
+        <div class="avatar">MS</div>
+        <span>Maria Souza</span>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- Formulário de cadastro -->
+    <div class="card">
+        <div class="card-title">Cadastrar Funcionário</div>
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">Nome Completo</label>
+                <input class="form-control" type="text" placeholder="Ex: João da Silva">
+            </div>
+            <div class="form-group">
+                <label class="form-label">CPF</label>
+                <input class="form-control" type="text" placeholder="000.000.000-00">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Data de Admissão</label>
+                <input class="form-control" type="date">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Cargo</label>
+                <select class="form-control">
+                    <option>Analista de RH</option>
+                    <option>Desenvolvedor</option>
+                    <option>Gerente</option>
+                    <option>Assistente Administrativo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Departamento</label>
+                <select class="form-control">
+                    <option>Recursos Humanos</option>
+                    <option>Tecnologia</option>
+                    <option>Financeiro</option>
+                    <option>Operações</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Turno</label>
+                <select class="form-control">
+                    <option>Manhã (08h–17h)</option>
+                    <option>Tarde (14h–23h)</option>
+                    <option>Integral (09h–18h)</option>
+                </select>
+            </div>
+        </div>
+        <div style="display:flex; gap:12px; margin-top:8px;">
+            <button class="btn btn-primary">Cadastrar</button>
+            <button class="btn btn-secondary">Limpar</button>
+        </div>
+    </div>
+
+    <!-- Lista de funcionários -->
+    <div class="card">
+        <div class="card-title" style="display:flex; justify-content:space-between; align-items:center;">
+            <span>Funcionários Cadastrados</span>
+            <input class="form-control" type="text" placeholder="Buscar funcionário..." style="width:240px;">
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Cargo</th>
+                    <th>Departamento</th>
+                    <th>Admissão</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#001</td>
+                    <td>Carlos Lima</td>
+                    <td>123.456.789-00</td>
+                    <td>Analista de RH</td>
+                    <td>Recursos Humanos</td>
+                    <td>03/01/2020</td>
+                    <td><span class="badge badge-green">Ativo</span></td>
+                    <td><button class="btn btn-secondary btn-sm">Editar</button></td>
+                </tr>
+                <tr>
+                    <td>#002</td>
+                    <td>Ana Paula</td>
+                    <td>987.654.321-00</td>
+                    <td>Desenvolvedora</td>
+                    <td>Tecnologia</td>
+                    <td>15/03/2021</td>
+                    <td><span class="badge badge-green">Ativo</span></td>
+                    <td><button class="btn btn-secondary btn-sm">Editar</button></td>
+                </tr>
+                <tr>
+                    <td>#003</td>
+                    <td>Roberto Silva</td>
+                    <td>456.123.789-00</td>
+                    <td>Gerente</td>
+                    <td>Financeiro</td>
+                    <td>10/07/2018</td>
+                    <td><span class="badge badge-green">Ativo</span></td>
+                    <td><button class="btn btn-secondary btn-sm">Editar</button></td>
+                </tr>
+                <tr>
+                    <td>#004</td>
+                    <td>Fernanda Costa</td>
+                    <td>321.654.987-00</td>
+                    <td>Assistente</td>
+                    <td>Operações</td>
+                    <td>22/09/2022</td>
+                    <td><span class="badge badge-red">Inativo</span></td>
+                    <td><button class="btn btn-secondary btn-sm">Editar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

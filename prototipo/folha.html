@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>RHSoft — Folha de Pagamento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo">RH<span>Soft</span></div>
+    <nav>
+        <a href="dashboard.html"    class="nav-item"><span class="icon">🏠</span> Dashboard</a>
+        <a href="funcionarios.html" class="nav-item"><span class="icon">👥</span> Funcionários</a>
+        <a href="folha.html"        class="nav-item active"><span class="icon">💰</span> Folha de Pagamento</a>
+        <a href="ferias.html"       class="nav-item"><span class="icon">🌴</span> Férias</a>
+        <a href="ponto.html"        class="nav-item"><span class="icon">🕐</span> Registro de Ponto</a>
+        <a href="avaliacao.html"    class="nav-item"><span class="icon">⭐</span> Avaliações</a>
+    </nav>
+    <div style="padding:16px 20px; color:#5a7090; font-size:12px; border-top:1px solid #243b5e;">
+        <div style="font-weight:600; color:#a0b0c8;">Maria Souza</div>
+        <div>Gestora de RH</div>
+    </div>
+</div>
+
+<div class="topbar">
+    <h1>Folha de Pagamento</h1>
+    <div class="user-info">
+        <div class="avatar">MS</div>
+        <span>Maria Souza</span>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- Filtros -->
+    <div class="card">
+        <div class="card-title">Processar Folha</div>
+        <div style="display:flex; gap:16px; align-items:flex-end;">
+            <div class="form-group" style="margin:0; flex:1;">
+                <label class="form-label">Mês de Referência</label>
+                <select class="form-control">
+                    <option>Maio / 2025</option>
+                    <option>Abril / 2025</option>
+                    <option>Março / 2025</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin:0; flex:1;">
+                <label class="form-label">Departamento</label>
+                <select class="form-control">
+                    <option>Todos</option>
+                    <option>Recursos Humanos</option>
+                    <option>Tecnologia</option>
+                    <option>Financeiro</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" style="margin-bottom:0;">Processar</button>
+        </div>
+    </div>
+
+    <!-- Tabela de folha -->
+    <div class="card">
+        <div class="card-title">Folha — Maio/2025</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Funcionário</th>
+                    <th>Cargo</th>
+                    <th>Salário Base</th>
+                    <th>Adicionais</th>
+                    <th>Descontos</th>
+                    <th>Salário Líquido</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Carlos Lima</td>
+                    <td>Analista de RH</td>
+                    <td>R$ 4.500,00</td>
+                    <td style="color:#1a9e5a;">+ R$ 300,00</td>
+                    <td style="color:#c0392b;">- R$ 540,00</td>
+                    <td><strong>R$ 4.260,00</strong></td>
+                    <td><span class="badge badge-green">Pago</span></td>
+                </tr>
+                <tr>
+                    <td>Ana Paula</td>
+                    <td>Desenvolvedora</td>
+                    <td>R$ 7.000,00</td>
+                    <td style="color:#1a9e5a;">+ R$ 700,00</td>
+                    <td style="color:#c0392b;">- R$ 1.050,00</td>
+                    <td><strong>R$ 6.650,00</strong></td>
+                    <td><span class="badge badge-green">Pago</span></td>
+                </tr>
+                <tr>
+                    <td>Roberto Silva</td>
+                    <td>Gerente</td>
+                    <td>R$ 12.000,00</td>
+                    <td style="color:#1a9e5a;">+ R$ 1.200,00</td>
+                    <td style="color:#c0392b;">- R$ 2.400,00</td>
+                    <td><strong>R$ 10.800,00</strong></td>
+                    <td><span class="badge badge-yellow">Pendente</span></td>
+                </tr>
+                <tr>
+                    <td>Fernanda Costa</td>
+                    <td>Assistente</td>
+                    <td>R$ 2.800,00</td>
+                    <td style="color:#1a9e5a;">+ R$ 0,00</td>
+                    <td style="color:#c0392b;">- R$ 252,00</td>
+                    <td><strong>R$ 2.548,00</strong></td>
+                    <td><span class="badge badge-yellow">Pendente</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top:16px; display:flex; gap:12px;">
+            <button class="btn btn-success">Confirmar Pagamentos</button>
+            <button class="btn btn-secondary">Exportar PDF</button>
+        </div>
+    </div>
+
+    <!-- Detalhes descontos/adicionais -->
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">Descontos — Carlos Lima</div>
+            <table>
+                <thead><tr><th>Tipo</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td>INSS (12%)</td><td>R$ 540,00</td></tr>
+                    <tr><td>Vale Transporte</td><td>R$ 0,00</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-title">Adicionais — Carlos Lima</div>
+            <table>
+                <thead><tr><th>Tipo</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td>Hora Extra (2h)</td><td>R$ 200,00</td></tr>
+                    <tr><td>Bônus Produtividade</td><td>R$ 100,00</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
