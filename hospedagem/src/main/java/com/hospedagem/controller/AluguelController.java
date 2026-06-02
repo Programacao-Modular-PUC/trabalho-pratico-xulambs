@@ -31,10 +31,20 @@ public class AluguelController {
         return aluguelService.listarPorCliente(clienteId);
     }
 
+    @GetMapping("/historico/{clienteId}")
+    public List<Aluguel> listarHistorico(@PathVariable Long clienteId) {
+        return aluguelService.listarHistoricoPorCliente(clienteId);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Aluguel criar(@RequestBody @Valid Aluguel aluguel) {
         return aluguelService.criar(aluguel);
+    }
+
+    @PatchMapping("/{id}/cancelar")
+    public Aluguel cancelar(@PathVariable Long id) {
+        return aluguelService.cancelar(id);
     }
 
     @DeleteMapping("/{id}")
