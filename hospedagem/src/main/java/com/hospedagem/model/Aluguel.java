@@ -44,4 +44,7 @@ public class Aluguel {
 
     /** Calculado automaticamente pelo serviço ao criar o aluguel. */
     private double valorTotal;
+
+    @Enumerated(EnumType.STRING)
+    private StatusAluguel status = StatusAluguel.ATIVO;
 }

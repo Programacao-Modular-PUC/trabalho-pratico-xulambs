@@ -1,6 +1,9 @@
 package com.hospedagem.service;
 
 import com.hospedagem.model.Quarto;
+import com.hospedagem.model.QuartoDuplo;
+import com.hospedagem.model.QuartoFamilia;
+import com.hospedagem.model.QuartoIndividual;
 import com.hospedagem.model.Residencia;
 import com.hospedagem.repository.QuartoRepository;
 import com.hospedagem.repository.ResidenciaRepository;
@@ -24,6 +27,17 @@ public class QuartoService {
 
     public List<Quarto> listarPorResidencia(Long residenciaId) {
         return quartoRepository.findByResidenciaId(residenciaId);
+    }
+
+    public List<Quarto> listarPorTipo(String tipo) {
+        Class<? extends Quarto> classe = switch (tipo.toUpperCase()) {
+            case "INDIVIDUAL" -> QuartoIndividual.class;
+            case "DUPLO"      -> QuartoDuplo.class;
+            case "FAMILIA"    -> QuartoFamilia.class;
+            default -> throw new IllegalArgumentException("Tipo de quarto inválido: " + tipo +
+                    ". Use: INDIVIDUAL, DUPLO ou FAMILIA");
+        };
+        return quartoRepository.findByTipo(classe);
     }
 
     public Quarto buscarPorId(Long id) {
