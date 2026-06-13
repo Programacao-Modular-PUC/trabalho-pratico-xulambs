@@ -48,8 +48,30 @@ class QuartoFamiliaTest {
     }
 
     @Test
+    void calcularDiaria_3Hospedes_semDesconto() {
+        // valorComHospedes = 1000 * (1 + 0.05*3) = 1150; desconto = 0
+        double resultado = quarto.calcularDiaria(3, false);
+        assertEquals(1150.0, resultado, 0.01);
+    }
+
+    @Test
     void getCapacidadeMaxima_calculaTodasAsCamas() {
         // 4 individuais + 2 casal*2 = 8
         assertEquals(8, quarto.getCapacidadeMaxima());
+    }
+
+    @Test
+    void getCapacidadeMaxima_comCamasQueenKing() {
+        quarto.setCamasIndividuais(2);
+        quarto.setCamasCasal(1);
+        quarto.setCamasQueenKing(2);
+        // 2 + 2 + 4 = 8
+        assertEquals(8, quarto.getCapacidadeMaxima());
+    }
+
+    @Test
+    void getCapacidadeMaxima_semCamas_retornaZero() {
+        QuartoFamilia vazio = new QuartoFamilia();
+        assertEquals(0, vazio.getCapacidadeMaxima());
     }
 }

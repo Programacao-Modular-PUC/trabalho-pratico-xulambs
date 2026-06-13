@@ -22,7 +22,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 
 @ExtendWith(MockitoExtension.class)
 class AluguelServiceTest {
@@ -167,5 +168,68 @@ class AluguelServiceTest {
         when(aluguelRepository.findById(1L)).thenReturn(Optional.of(aluguelCancelado));
 
         assertThrows(RecursoNaoPermitidoException.class, () -> aluguelService.cancelar(1L));
+    }
+
+    @Test
+    void criar_datasNulas_lancaDataInvalidaException() {
+        aluguel.setDataInicio(null);
+        when(quartoRepository.findById(1L)).thenReturn(Optional.of(quartoDuplo));
+        when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
+
+        assertThrows(DataInvalidaException.class, () -> aluguelService.criar(aluguel));
+    }
+
+    @Test
+    void criar_comBercoEmQuartoFamilia_calculaValorSemExcecao() {
+        QuartoFamilia quartoFamilia = new QuartoFamilia();
+        quartoFamilia.setId(3L);
+        quartoFamilia.setValorBase(1000.0);
+        quartoFamilia.setPercentualPorHospede(0.05);
+        quartoFamilia.setCamasIndividuais(4);
+        quartoFamilia.setCamasCasal(2);
+
+        aluguel.setQuarto(quartoFamilia);
+        aluguel.setSolicitouBerco(true);
+        aluguel.setNumHospedes(4);
+
+        when(quartoRepository.findById(3L)).thenReturn(Optional.of(quartoFamilia));
+        when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
+        when(aluguelRepository.findConflitosReserva(anyLong(), any(), any(), any()))
+                .thenReturn(List.of());
+        when(aluguelRepository.save(any(Aluguel.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        Aluguel resultado = aluguelService.criar(aluguel);
+
+        assertEquals(StatusAluguel.ATIVO, resultado.getStatus());
+        assertTrue(resultado.getValorTotal() > 0);
+    }
+
+    @Test
+    void listarPorCliente_retornaAlugueisFiltradosPorCliente() {
+        when(aluguelRepository.findByClienteIdAndStatus(1L, StatusAluguel.ATIVO))
+                .thenReturn(List.of(aluguel));
+
+        List<Aluguel> resultado = aluguelService.listarPorCliente(1L);
+
+        assertEquals(1, resultado.size());
+        assertEquals(StatusAluguel.ATIVO, resultado.get(0).getStatus());
+    }
+
+    @Test
+    void deletar_aluguelExistente_chamaDeleteById() {
+        when(aluguelRepository.findById(1L)).thenReturn(Optional.of(aluguel));
+
+        aluguelService.deletar(1L);
+
+        verify(aluguelRepository).deleteById(1L);
+    }
+
+    @Test
+    void deletar_aluguelInexistente_lancaNotFoundException() {
+        when(aluguelRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(org.springframework.web.server.ResponseStatusException.class,
+                () -> aluguelService.deletar(99L));
+        verify(aluguelRepository, never()).deleteById(any());
     }
 }
