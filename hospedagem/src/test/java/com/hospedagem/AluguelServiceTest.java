@@ -5,6 +5,7 @@ import com.hospedagem.exception.DataInvalidaException;
 import com.hospedagem.exception.QuartoIndisponivelException;
 import com.hospedagem.exception.RecursoNaoPermitidoException;
 import com.hospedagem.model.*;
+import com.hospedagem.notificacao.GerenciadorNotificacoes;
 import com.hospedagem.repository.AluguelRepository;
 import com.hospedagem.repository.ClienteRepository;
 import com.hospedagem.repository.QuartoRepository;
@@ -36,6 +37,9 @@ class AluguelServiceTest {
 
     @Mock
     private ClienteRepository clienteRepository;
+
+    @Mock
+    private GerenciadorNotificacoes gerenciadorNotificacoes;
 
     @InjectMocks
     private AluguelService aluguelService;
