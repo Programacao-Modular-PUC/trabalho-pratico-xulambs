@@ -5,6 +5,8 @@ import com.hospedagem.exception.DataInvalidaException;
 import com.hospedagem.exception.QuartoIndisponivelException;
 import com.hospedagem.exception.RecursoNaoPermitidoException;
 import com.hospedagem.model.*;
+import com.hospedagem.notificacao.EventoAluguel;
+import com.hospedagem.notificacao.GerenciadorNotificacoes;
 import com.hospedagem.repository.AluguelRepository;
 import com.hospedagem.repository.ClienteRepository;
 import com.hospedagem.repository.QuartoRepository;
@@ -24,6 +26,7 @@ public class AluguelService {
     private final AluguelRepository aluguelRepository;
     private final QuartoRepository quartoRepository;
     private final ClienteRepository clienteRepository;
+    private final GerenciadorNotificacoes gerenciadorNotificacoes;
 
     public List<Aluguel> listar() {
         return aluguelRepository.findAll();
@@ -62,7 +65,9 @@ public class AluguelService {
         aluguel.setValorTotal(valorDiaria * numDias);
         aluguel.setStatus(StatusAluguel.ATIVO);
 
-        return aluguelRepository.save(aluguel);
+        Aluguel salvo = aluguelRepository.save(aluguel);
+        gerenciadorNotificacoes.notificar(EventoAluguel.RESERVA_CRIADA, salvo);
+        return salvo;
     }
 
     public Aluguel cancelar(Long id) {
@@ -71,7 +76,9 @@ public class AluguelService {
             throw new RecursoNaoPermitidoException("Aluguel já está cancelado");
         }
         aluguel.setStatus(StatusAluguel.CANCELADO);
-        return aluguelRepository.save(aluguel);
+        Aluguel cancelado = aluguelRepository.save(aluguel);
+        gerenciadorNotificacoes.notificar(EventoAluguel.RESERVA_CANCELADA, cancelado);
+        return cancelado;
     }
 
     public void deletar(Long id) {

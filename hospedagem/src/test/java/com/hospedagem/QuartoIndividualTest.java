@@ -39,8 +39,20 @@ class QuartoIndividualTest {
     }
 
     @Test
+    void getCapacidadeMaxima_umaCama_retornaUm() {
+        assertEquals(1, quarto.getCapacidadeMaxima());
+    }
+
+    @Test
     void getCapacidadeMaxima_retornaNumeroDeCamas() {
         quarto.setNumeroCamas(2);
         assertEquals(2, quarto.getCapacidadeMaxima());
+    }
+
+    @Test
+    void calcularDiaria_ignoraBerco_retornaMesmoValor() {
+        double semBerco = quarto.calcularDiaria(1, false);
+        double comBerco = quarto.calcularDiaria(1, true);
+        assertEquals(semBerco, comBerco);
     }
 }
