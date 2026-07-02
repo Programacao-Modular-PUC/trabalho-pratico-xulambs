@@ -8,7 +8,7 @@ Trabalho desenvolvido com Spring para a disciplina **Programação Modular - Man
 
 ## Demo
 
-[▶️ Assistir demonstração do sistema](https://drive.google.com/file/d/17GntPfjzt-EoQvqAgqNJc7bOgmFUUDgY/view?usp=sharing)
+[▶️ Assistir demonstração do sistema](https://drive.google.com/file/d/1xFMCLBqKsI2T-C-0NxAfrOzg8mcbTbBF/view?usp=sharing)
 
 ---
 
