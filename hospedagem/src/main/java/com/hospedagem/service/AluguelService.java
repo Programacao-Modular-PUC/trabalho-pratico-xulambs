@@ -11,6 +11,7 @@ import com.hospedagem.repository.AluguelRepository;
 import com.hospedagem.repository.ClienteRepository;
 import com.hospedagem.repository.QuartoRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,20 +30,28 @@ public class AluguelService {
     private final GerenciadorNotificacoes gerenciadorNotificacoes;
 
     public List<Aluguel> listar() {
-        return aluguelRepository.findAll();
+        List<Aluguel> alugueis = aluguelRepository.findAll();
+        alugueis.forEach(a -> a.setQuarto((Quarto) Hibernate.unproxy(a.getQuarto())));
+        return alugueis;
     }
 
     public Aluguel buscarPorId(Long id) {
-        return aluguelRepository.findById(id)
+        Aluguel a = aluguelRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluguel não encontrado"));
+        a.setQuarto((Quarto) Hibernate.unproxy(a.getQuarto()));
+        return a;
     }
 
     public List<Aluguel> listarPorCliente(Long clienteId) {
-        return aluguelRepository.findByClienteIdAndStatus(clienteId, StatusAluguel.ATIVO);
+        List<Aluguel> alugueis = aluguelRepository.findByClienteIdAndStatus(clienteId, StatusAluguel.ATIVO);
+        alugueis.forEach(a -> a.setQuarto((Quarto) Hibernate.unproxy(a.getQuarto())));
+        return alugueis;
     }
 
     public List<Aluguel> listarHistoricoPorCliente(Long clienteId) {
-        return aluguelRepository.findByClienteId(clienteId);
+        List<Aluguel> alugueis = aluguelRepository.findByClienteId(clienteId);
+        alugueis.forEach(a -> a.setQuarto((Quarto) Hibernate.unproxy(a.getQuarto())));
+        return alugueis;
     }
 
     public Aluguel criar(Aluguel aluguel) {

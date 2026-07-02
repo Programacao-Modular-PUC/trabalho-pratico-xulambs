@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Hospedagem</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div class="brand">
+    🏨 Hospedagem
+    <small>Sistema de Gerenciamento</small>
+  </div>
+  <nav>
+    <a id="nav-dashboard"   onclick="navigate('dashboard')"  >
+      <span class="icon">📊</span> Dashboard
+    </a>
+    <a id="nav-clientes"    onclick="navigate('clientes')"   >
+      <span class="icon">👥</span> Clientes
+    </a>
+    <a id="nav-residencias" onclick="navigate('residencias')">
+      <span class="icon">🏠</span> Residências
+    </a>
+    <a id="nav-quartos"     onclick="navigate('quartos')"    >
+      <span class="icon">🛏️</span> Quartos
+    </a>
+    <a id="nav-reservas"    onclick="navigate('reservas')"   >
+      <span class="icon">📅</span> Reservas
+    </a>
+    <a id="nav-relatorios"  onclick="navigate('relatorios')" >
+      <span class="icon">📈</span> Relatórios
+    </a>
+  </nav>
+  <div style="padding:16px;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="font-size:0.72rem;color:#475569;line-height:1.6">
+      <div>🎓 PUC Minas — Prog. Modular</div>
+      <div>Felipe Costa &amp; Pedro</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="topbar">
+    <h1 id="topbar-title">Dashboard</h1>
+    <div style="font-size:0.82rem;color:#64748b">H2 In-Memory Database &bull; Spring Boot 3.2</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ══════════ DASHBOARD ══════════ -->
+    <div id="section-dashboard" class="section">
+      <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-lg-3">
+          <div class="metric-card bg-blue d-flex justify-content-between align-items-center">
+            <div>
+              <div class="metric-value" id="dash-faturamento">—</div>
+              <div class="metric-label">Faturamento Total</div>
+            </div>
+            <div class="metric-icon">💰</div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="metric-card bg-green d-flex justify-content-between align-items-center">
+            <div>
+              <div class="metric-value" id="dash-taxa-ocup">—</div>
+              <div class="metric-label" id="dash-quartos-ocup">Taxa de Ocupação</div>
+            </div>
+            <div class="metric-icon">🏠</div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="metric-card bg-purple d-flex justify-content-between align-items-center">
+            <div>
+              <div class="metric-value" id="dash-reservas-ativas">—</div>
+              <div class="metric-label">Reservas Ativas</div>
+            </div>
+            <div class="metric-icon">📅</div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="metric-card bg-orange d-flex justify-content-between align-items-center">
+            <div>
+              <div class="metric-value" id="dash-total-clientes">—</div>
+              <div class="metric-label">Clientes Cadastrados</div>
+            </div>
+            <div class="metric-icon">👥</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="table-card">
+            <div class="table-header">
+              <h5>🏆 Top Clientes Frequentes</h5>
+              <span class="text-muted" style="font-size:0.8rem">Total: <strong id="dash-total-reservas">—</strong> reservas</span>
+            </div>
+            <table class="table mb-0">
+              <thead><tr><th>#</th><th>Nome</th><th>Reservas</th></tr></thead>
+              <tbody id="dash-top-clientes">
+                <tr><td colspan="3" class="text-center text-muted py-4">Carregando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="notif-panel h-100">
+            <div style="font-size:0.9rem;font-weight:600;color:#1e293b;margin-bottom:12px">
+              🔔 Notificações Recentes
+              <span style="font-size:0.72rem;font-weight:400;color:#64748b;margin-left:8px">Observer Pattern</span>
+            </div>
+            <div id="notif-list"></div>
+            <div style="margin-top:12px;font-size:0.72rem;color:#94a3b8">
+              Canais ativos: 📧 Email &bull; 📱 SMS &bull; 💬 WhatsApp
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ CLIENTES ══════════ -->
+    <div id="section-clientes" class="section">
+      <div class="row g-3">
+        <div class="col-lg-4">
+          <div class="form-card" id="cli-form-card">
+            <h5 id="cli-form-title">Novo Cliente</h5>
+            <form id="cli-form" onsubmit="saveCliente(event)">
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">Nome *</label>
+                <input id="cli-nome" type="text" class="form-control form-control-sm" required />
+              </div>
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">CPF *</label>
+                <input id="cli-cpf" type="text" class="form-control form-control-sm" placeholder="000.000.000-00" required />
+              </div>
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">E-mail</label>
+                <input id="cli-email" type="email" class="form-control form-control-sm" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Telefone</label>
+                <input id="cli-tel" type="text" class="form-control form-control-sm" />
+              </div>
+              <div class="d-flex gap-2">
+                <button id="cli-submit-btn" type="submit" class="btn btn-primary btn-sm">Cadastrar</button>
+                <button id="cli-cancel-btn" type="button" class="btn btn-outline-secondary btn-sm" onclick="resetClienteForm()" style="display:none">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="table-card">
+            <div class="table-header">
+              <h5>👥 Clientes Cadastrados</h5>
+              <button class="btn btn-sm btn-outline-primary" onclick="loadClientes()">🔄 Atualizar</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead><tr><th>#</th><th>Nome</th><th>CPF</th><th>E-mail</th><th>Telefone</th><th>Ações</th></tr></thead>
+                <tbody id="clientes-tbody">
+                  <tr><td colspan="6" class="text-center text-muted py-4">Carregando...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ RESIDÊNCIAS ══════════ -->
+    <div id="section-residencias" class="section">
+      <div class="row g-3">
+        <div class="col-lg-4">
+          <div class="form-card">
+            <h5>🏠 Nova Residência</h5>
+            <form id="res-form" onsubmit="saveResidencia(event)">
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">Nome *</label>
+                <input id="res-nome" type="text" class="form-control form-control-sm" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Endereço *</label>
+                <input id="res-endereco" type="text" class="form-control form-control-sm" required />
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm">Cadastrar</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0" style="font-size:0.95rem;font-weight:600;color:#1e293b">Residências &amp; Quartos</h5>
+            <button class="btn btn-sm btn-outline-primary" onclick="loadResidencias()">🔄 Atualizar</button>
+          </div>
+          <div id="residencias-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ QUARTOS ══════════ -->
+    <div id="section-quartos" class="section">
+      <div class="row g-3">
+        <div class="col-lg-5">
+          <div class="form-card">
+            <h5>🛏️ Novo Quarto</h5>
+            <form id="quarto-form" onsubmit="saveQuarto(event)">
+              <div class="row g-2 mb-2">
+                <div class="col-6">
+                  <label class="form-label small fw-semibold">Tipo *</label>
+                  <select id="quarto-tipo" class="form-select form-select-sm" required onchange="onTipoQuartoChange()">
+                    <option value="">Selecione...</option>
+                    <option value="INDIVIDUAL">Individual</option>
+                    <option value="DUPLO">Duplo</option>
+                    <option value="FAMILIA">Família</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <label class="form-label small fw-semibold">Valor Base (R$/noite) *</label>
+                  <input id="quarto-valor" type="number" step="0.01" class="form-control form-control-sm" required />
+                </div>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">Residência</label>
+                <select id="quarto-residencia" class="form-select form-select-sm">
+                  <option value="">Selecione...</option>
+                </select>
+              </div>
+              <div class="mb-3 d-flex gap-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="quarto-ar" />
+                  <label class="form-check-label small" for="quarto-ar">Ar-condicionado</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="quarto-hidro" />
+                  <label class="form-check-label small" for="quarto-hidro">Hidromassagem</label>
+                </div>
+              </div>
+
+              <!-- Individual -->
+              <div id="fields-individual" style="display:none">
+                <div class="row g-2 mb-2">
+                  <div class="col-6">
+                    <label class="form-label small fw-semibold">Nº de Camas</label>
+                    <input id="qi-camas" type="number" min="1" value="1" class="form-control form-control-sm" />
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label small fw-semibold">Adicional por Cama (R$)</label>
+                    <input id="qi-adicional" type="number" step="0.01" value="0" class="form-control form-control-sm" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Duplo -->
+              <div id="fields-duplo" style="display:none">
+                <div class="mb-2">
+                  <label class="form-label small fw-semibold">Tipo de Cama</label>
+                  <select id="qd-tipo-cama" class="form-select form-select-sm">
+                    <option value="CASAL">Casal</option>
+                    <option value="QUEEN">Queen</option>
+                    <option value="KING">King</option>
+                  </select>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="qd-berco" />
+                  <label class="form-check-label small" for="qd-berco">Possui Berço</label>
+                </div>
+                <div class="row g-2 mb-2">
+                  <div class="col-4">
+                    <label class="form-label small fw-semibold">Taxa Berço (R$)</label>
+                    <input id="qd-taxa-berco" type="number" step="0.01" value="0" class="form-control form-control-sm" />
+                  </div>
+                  <div class="col-4">
+                    <label class="form-label small fw-semibold">Adicional Casal</label>
+                    <input id="qd-adicional-casal" type="number" step="0.01" value="0" class="form-control form-control-sm" />
+                  </div>
+                  <div class="col-4">
+                    <label class="form-label small fw-semibold">Adicional Q/K</label>
+                    <input id="qd-adicional-qk" type="number" step="0.01" value="0" class="form-control form-control-sm" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Família -->
+              <div id="fields-familia" style="display:none">
+                <div class="row g-2 mb-2">
+                  <div class="col-4">
+                    <label class="form-label small fw-semibold">Camas Individuais</label>
+                    <input id="qf-individuais" type="number" min="0" value="0" class="form-control form-control-sm" />
+                  </div>
+                  <div class="col-4">
+                    <label class="form-label small fw-semibold">Camas Casal</label>
+                    <input id="qf-casal" type="number" min="0" value="0" class="form-control form-control-sm" />
+                  </div>
+                  <div class="col-4">
+                    <label class="form-label small fw-semibold">Camas Q/King</label>
+                    <input id="qf-qk" type="number" min="0" value="0" class="form-control form-control-sm" />
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label class="form-label small fw-semibold">% adicional por hóspede</label>
+                  <input id="qf-percentual" type="number" step="0.1" value="5" class="form-control form-control-sm" />
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-sm mt-2">Cadastrar Quarto</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="table-card">
+            <div class="table-header">
+              <h5>🛏️ Quartos Cadastrados</h5>
+              <button class="btn btn-sm btn-outline-primary" onclick="loadQuartos()">🔄 Atualizar</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead><tr><th>#</th><th>Tipo</th><th>Valor Base</th><th>AR</th><th>Hidro</th><th>Capacidade</th><th></th></tr></thead>
+                <tbody id="quartos-tbody">
+                  <tr><td colspan="7" class="text-center text-muted py-4">Carregando...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ RESERVAS ══════════ -->
+    <div id="section-reservas" class="section">
+      <div class="row g-3">
+        <!-- Formulário nova reserva -->
+        <div class="col-lg-4">
+          <div class="form-card">
+            <h5>📅 Nova Reserva</h5>
+            <form id="reserva-form" onsubmit="saveReserva(event)">
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">Cliente *</label>
+                <select id="reserva-cliente" class="form-select form-select-sm" required>
+                  <option value="">Selecione um cliente...</option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">Quarto *</label>
+                <select id="reserva-quarto" class="form-select form-select-sm" required>
+                  <option value="">Selecione um quarto...</option>
+                </select>
+              </div>
+              <div class="row g-2 mb-2">
+                <div class="col-6">
+                  <label class="form-label small fw-semibold">Data Início *</label>
+                  <input id="reserva-inicio" type="date" class="form-control form-control-sm" required />
+                </div>
+                <div class="col-6">
+                  <label class="form-label small fw-semibold">Data Fim *</label>
+                  <input id="reserva-fim" type="date" class="form-control form-control-sm" required />
+                </div>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">Nº de Hóspedes *</label>
+                <input id="reserva-hospedes" type="number" min="1" value="1" class="form-control form-control-sm" required />
+              </div>
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="reserva-berco" />
+                <label class="form-check-label small" for="reserva-berco">Solicitar Berço</label>
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm">Criar Reserva</button>
+            </form>
+          </div>
+
+          <!-- Buscar histórico -->
+          <div class="form-card">
+            <h5>🔍 Histórico por Cliente</h5>
+            <div class="d-flex gap-2">
+              <input id="historico-cliente-id" type="number" class="form-control form-control-sm" placeholder="ID do cliente" />
+              <button class="btn btn-outline-primary btn-sm" onclick="buscarHistorico()">Buscar</button>
+            </div>
+          </div>
+
+          <!-- Notificações -->
+          <div class="notif-panel">
+            <div style="font-size:0.9rem;font-weight:600;color:#1e293b;margin-bottom:12px">
+              🔔 Notificações
+              <span style="font-size:0.72rem;font-weight:400;color:#64748b;margin-left:8px">Observer Pattern</span>
+            </div>
+            <div id="notif-list-reservas"></div>
+            <div style="margin-top:12px;font-size:0.72rem;color:#94a3b8">
+              Canais: 📧 Email &bull; 📱 SMS &bull; 💬 WhatsApp (Singleton)
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabela de reservas + histórico -->
+        <div class="col-lg-8">
+          <div class="table-card mb-3">
+            <div class="table-header">
+              <h5>📋 Todas as Reservas</h5>
+              <button class="btn btn-sm btn-outline-primary" onclick="loadReservas()">🔄 Atualizar</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead>
+                  <tr><th>#</th><th>Cliente</th><th>Quarto</th><th>Início</th><th>Fim</th><th>Hósp.</th><th>Valor</th><th>Status</th><th></th></tr>
+                </thead>
+                <tbody id="reservas-tbody">
+                  <tr><td colspan="9" class="text-center text-muted py-4">Carregando...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Histórico -->
+          <div class="table-card" id="historico-section" style="display:none">
+            <div class="table-header">
+              <h5>📜 Histórico do Cliente</h5>
+            </div>
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead>
+                  <tr><th>#</th><th>Quarto</th><th>Início</th><th>Fim</th><th>Hósp.</th><th>Valor</th><th>Status</th></tr>
+                </thead>
+                <tbody id="historico-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ RELATÓRIOS ══════════ -->
+    <div id="section-relatorios" class="section">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0" style="font-size:0.95rem;font-weight:600;color:#1e293b">📈 Relatórios Gerenciais</h5>
+        <button class="btn btn-sm btn-outline-primary" onclick="loadRelatorios()">🔄 Atualizar</button>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="report-card">
+            <h6>💰 Faturamento Total</h6>
+            <div id="rel-fat"><div class="spinner-border spinner-border-sm text-primary"></div></div>
+            <div style="margin-top:12px;font-size:0.72rem;color:#94a3b8">
+              Template Method Pattern — RelatorioFaturamentoMensal
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="report-card">
+            <h6>🏠 Taxa de Ocupação</h6>
+            <div id="rel-ocup"><div class="spinner-border spinner-border-sm text-primary"></div></div>
+            <div style="margin-top:12px;font-size:0.72rem;color:#94a3b8">
+              Template Method Pattern — RelatorioTaxaOcupacao
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="report-card">
+            <h6>🏆 Clientes Frequentes</h6>
+            <div id="rel-freq"><div class="spinner-border spinner-border-sm text-primary"></div></div>
+            <div style="margin-top:12px;font-size:0.72rem;color:#94a3b8">
+              Template Method Pattern — RelatorioClientesFrequentes
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Singleton destaque -->
+      <div class="row g-3 mt-1">
+        <div class="col-12">
+          <div class="report-card" style="border-left:4px solid #3b82f6">
+            <h6>🔷 Padrão Singleton — GerenciadorNotificacoes</h6>
+            <p style="font-size:0.85rem;color:#334155;margin-bottom:12px">
+              Garante que exista <strong>uma única instância</strong> do gerenciador de notificações em toda a aplicação.
+              Qualquer serviço que precise disparar notificações obtém sempre o mesmo objeto via <code>getInstance()</code>,
+              evitando duplicações e centralizando o controle dos observadores registrados.
+            </p>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div style="background:#f8fafc;border-radius:8px;padding:14px;font-family:monospace;font-size:0.78rem;color:#1e293b;line-height:1.7">
+                  <span style="color:#64748b">// Construtor privado — impede new GerenciadorNotificacoes()</span><br>
+                  <span style="color:#7c3aed">private</span> GerenciadorNotificacoes() { }<br><br>
+                  <span style="color:#64748b">// Instância estática única</span><br>
+                  <span style="color:#7c3aed">private static</span> GerenciadorNotificacoes instancia;<br><br>
+                  <span style="color:#64748b">// Acesso thread-safe via synchronized</span><br>
+                  <span style="color:#7c3aed">public static synchronized</span> GerenciadorNotificacoes <span style="color:#1d4ed8">getInstance</span>() {<br>
+                  &nbsp;&nbsp;<span style="color:#7c3aed">if</span> (instancia == <span style="color:#dc2626">null</span>)<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;instancia = <span style="color:#7c3aed">new</span> GerenciadorNotificacoes();<br>
+                  &nbsp;&nbsp;<span style="color:#7c3aed">return</span> instancia;<br>
+                  }
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div style="font-size:0.83rem;color:#334155;line-height:1.8">
+                  <div class="report-row"><span>📦 Classe</span><span class="value">GerenciadorNotificacoes.java</span></div>
+                  <div class="report-row"><span>🔒 Construtor</span><span class="value">private</span></div>
+                  <div class="report-row"><span>🔄 Thread-safe</span><span class="value">synchronized</span></div>
+                  <div class="report-row"><span>📡 Observadores</span><span class="value">Email, SMS, WhatsApp</span></div>
+                  <div class="report-row"><span>📣 Eventos</span><span class="value">RESERVA_CRIADA, RESERVA_CANCELADA</span></div>
+                  <div class="report-row"><span>🔗 Usado em</span><span class="value">AluguelService (criar / cancelar)</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outros padrões -->
+      <div class="row g-3 mt-1">
+        <div class="col-12">
+          <div class="report-card">
+            <h6>🧩 Demais Padrões de Projeto Implementados</h6>
+            <div class="row g-3 mt-1">
+              <div class="col-md-4">
+                <div style="background:#f0fdf4;border-radius:8px;padding:14px">
+                  <div style="font-weight:600;color:#166534;font-size:0.85rem;margin-bottom:6px">👁️ Observer</div>
+                  <div style="font-size:0.78rem;color:#374151;line-height:1.6">
+                    Interface <code>NotificacaoObserver</code> com método <code>notificar(evento, aluguel)</code>.<br><br>
+                    Implementações concretas: <strong>EmailNotificacao</strong>, <strong>SmsNotificacao</strong>, <strong>WhatsAppNotificacao</strong>.<br><br>
+                    O <em>Subject</em> (<code>GerenciadorNotificacoes</code>) mantém lista de observers e despacha para todos ao ocorrer um evento.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="background:#fdf4ff;border-radius:8px;padding:14px">
+                  <div style="font-weight:600;color:#7e22ce;font-size:0.85rem;margin-bottom:6px">📐 Template Method</div>
+                  <div style="font-size:0.78rem;color:#374151;line-height:1.6">
+                    Classe abstrata <code>RelatorioGerencial</code> define o algoritmo: <code>gerar()</code> → <code>coletarDados()</code> → <code>processar(dados)</code>.<br><br>
+                    Subclasses implementam os passos específicos:<br>
+                    <strong>RelatorioFaturamentoMensal</strong><br>
+                    <strong>RelatorioTaxaOcupacao</strong><br>
+                    <strong>RelatorioClientesFrequentes</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="background:#fff7ed;border-radius:8px;padding:14px">
+                  <div style="font-weight:600;color:#c2410c;font-size:0.85rem;margin-bottom:6px">⚙️ Strategy (implícito)</div>
+                  <div style="font-size:0.78rem;color:#374151;line-height:1.6">
+                    Método abstrato <code>calcularDiaria(numHospedes, berco)</code> na classe <code>Quarto</code>.<br><br>
+                    Cada subtipo implementa a estratégia de precificação:<br>
+                    • <strong>Individual</strong>: base + adicional por cama extra<br>
+                    • <strong>Duplo</strong>: base + tipo de cama + taxa berço<br>
+                    • <strong>Família</strong>: base × hóspedes − desconto progressivo
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tecnologias e pacotes -->
+      <div class="row g-3 mt-1">
+        <div class="col-12">
+          <div class="report-card">
+            <h6>📦 Tecnologias e Pacotes Utilizados</h6>
+            <div class="row g-3 mt-1">
+              <div class="col-md-3">
+                <div style="background:#f8fafc;border-radius:8px;padding:14px">
+                  <div style="font-weight:600;color:#1e293b;font-size:0.82rem;margin-bottom:8px">☕ Linguagem & Runtime</div>
+                  <div style="font-size:0.78rem;color:#374151;line-height:2">
+                    <div><span style="background:#dbeafe;color:#1d4ed8;border-radius:4px;padding:1px 6px;font-weight:600">Java 21</span> — LTS, Records, Pattern Matching</div>
+                    <div><span style="background:#dcfce7;color:#166534;border-radius:4px;padding:1px 6px;font-weight:600">Spring Boot 3.2.5</span> — Framework principal</div>
+                    <div><span style="background:#f3f4f6;color:#374151;border-radius:4px;padding:1px 6px;font-weight:600">Maven</span> — Gerenciador de dependências</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div style="background:#f8fafc;border-radius:8px;padding:14px">
+                  <div style="font-weight:600;color:#1e293b;font-size:0.82rem;margin-bottom:8px">🌐 Web & Validação</div>
+                  <div style="font-size:0.78rem;color:#374151;line-height:2">
+                    <div><span style="background:#dbeafe;color:#1d4ed8;border-radius:4px;padding:1px 6px;font-weight:600">spring-boot-starter-web</span></div>
+                    <div style="font-size:0.72rem;color:#64748b;margin-bottom:4px">Spring MVC, REST Controllers, Jackson (JSON)</div>
+                    <div><span style="background:#dbeafe;color:#1d4ed8;border-radius:4px;padding:1px 6px;font-weight:600">spring-boot-starter-validation</span></div>
+                    <div style="font-size:0.72rem;color:#64748b">Jakarta Bean Validation (@NotBlank, @Email, @Min)</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div style="background:#f8fafc;border-radius:8px;padding:14px">
+                  <div style="font-weight:600;color:#1e293b;font-size:0.82rem;margin-bottom:8px">🗄️ Persistência</div>
+                  <div style="font-size:0.78rem;color:#374151;line-height:2">
+                    <div><span style="background:#d1fae5;color:#065f46;border-radius:4px;padding:1px 6px;font-weight:600">spring-boot-starter-data-jpa</span></div>
+                    <div style="font-size:0.72rem;color:#64748b;margin-bottom:4px">Spring Data JPA + Hibernate 6 (ORM)</div>
+                    <div><span style="background:#d1fae5;color:#065f46;border-radius:4px;padding:1px 6px;font-weight:600">H2 Database</span></div>
+                    <div style="font-size:0.72rem;color:#64748b">Banco em memória para desenvolvimento (console em /h2-console)</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div style="background:#f8fafc;border-radius:8px;padding:14px">
+                  <div style="font-weight:600;color:#1e293b;font-size:0.82rem;margin-bottom:8px">🛠️ Utilitários & Testes</div>
+                  <div style="font-size:0.78rem;color:#374151;line-height:2">
+                    <div><span style="background:#fef9c3;color:#854d0e;border-radius:4px;padding:1px 6px;font-weight:600">Lombok</span></div>
+                    <div style="font-size:0.72rem;color:#64748b;margin-bottom:4px">@Getter, @Setter, @NoArgsConstructor, @RequiredArgsConstructor</div>
+                    <div><span style="background:#fef9c3;color:#854d0e;border-radius:4px;padding:1px 6px;font-weight:600">spring-boot-starter-test</span></div>
+                    <div style="font-size:0.72rem;color:#64748b">JUnit 5, Mockito, Spring Test</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<div id="toast-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
