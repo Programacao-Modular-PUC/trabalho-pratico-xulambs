@@ -6,6 +6,12 @@ Trabalho desenvolvido com Spring para a disciplina **Programação Modular - Man
 
 ---
 
+## Demo
+
+[▶️ Assistir demonstração do sistema](https://drive.google.com/file/d/17GntPfjzt-EoQvqAgqNJc7bOgmFUUDgY/view?usp=sharing)
+
+---
+
 ## Sobre o projeto
 
 Sistema de gerenciamento de hospedagem que permite cadastrar residências, quartos (Individual, Duplo e Família), clientes e reservas. Conta com geração de relatórios gerenciais e sistema de notificações automáticas ao criar ou cancelar uma reserva.
